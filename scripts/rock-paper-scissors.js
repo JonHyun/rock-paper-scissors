@@ -14,34 +14,19 @@ function getComputerChoice() {
 
 /* Output result based on Player input and computer selection from previous function */
 
-const playerSelectionRock = document.querySelector(".playerRock");
+  
 
-playerSelectionRock.addEventListener("click", () => {
-    playRound('Rock');
-});
+function playRound(playerSelection) {
 
-const playerSelectionPaper = document.querySelector(".playerPaper");
+    let result ='';
 
-playerSelectionPaper.addEventListener("click", () => {
-    playRound('Paper');
-});
-
-
-const playerSelectionScissors = document.querySelector(".playerScissors");
-
-playerSelectionScissors.addEventListener("click", () => {
-    playRound('Scissors');
-});
-
-  let score =  JSON.parse(localStorage.getItem('score')) || {
+    let score = {
         wins: 0,
         losses: 0,
         ties: 0
     };
 
-function playRound(playerSelection) {
-
-    let result ='';
+    for (let i = 1; i <= 5; i++ ) {
 
         let computerSelection = getComputerChoice();
    
@@ -84,25 +69,28 @@ function playRound(playerSelection) {
         } else if (result === 'You Tied') {
             score.ties += 1;
         }
-
+    }
         /* 5 game score tracker and winner output */
 
-    if (score.wins === 5) {
-        console.log('You Won');
-        return score;
-    } else if (score.losses === 5) {
-        console.log('You Lose');
-        return score;
-    } else if (score.ties === 5) {
-        console.log('You Tied');
-        return score;
-    } 
+        if (score.wins >= 3) {
+            console.log(score);
+            return 'You Won';
+        } else if (score.losses >= 3) {
+            console.log(score);
+            return 'You Lose';
+        } else if (score.ties >= 3) {
+            console.log(score);
+            return 'Scores Tied';
+        } else {
+            console.log(score);
+            return 'No one wins'
+        }
+    }      
 
-    console.log(score);
-}      
 
-
+const playerSelection = prompt('Enter Rock, Paper, or Scissors:');
 
 const computerSelection = getComputerChoice();
 
+console.log(playRound(playerSelection, computerSelection));
 
